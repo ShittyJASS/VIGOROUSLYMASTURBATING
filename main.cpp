@@ -11,6 +11,7 @@ void print_buffer(const char *src, size_t len) {
 		if (shift) keybd_event(VK_SHIFT, 0, KEYEVENTF_EXTENDEDKEY, 0);
 		if (alt) keybd_event(VK_MENU, 0, KEYEVENTF_EXTENDEDKEY, 0);
 		keybd_event(LOBYTE(scan), 0, 0, 0);
+		keybd_event(LOBYTE(scan), 0, KEYEVENTF_KEYUP, 0);
 		if (shift) keybd_event(VK_SHIFT, 0, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
 		if (alt) keybd_event(VK_MENU, 0, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
 	}
@@ -24,6 +25,7 @@ void set_status(char *src, size_t len, unsigned i) {
 	print_buffer(src + i, min(width, len));
 	print_buffer(src, max(0, (int) 14 - (int) width));
 	keybd_event(VK_RETURN, 0, 0, NULL);
+	keybd_event(VK_RETURN, 0, KEYEVENTF_KEYUP, NULL);
 }
 
 int wmain(int argc, wchar_t **argv) {
@@ -35,7 +37,7 @@ int wmain(int argc, wchar_t **argv) {
 			Sleep(1000);
 			for (unsigned i = 0; i < len; ++i) {
 				set_status(buf, len, i);
-				Sleep(150);
+				Sleep(200);
 			}
 			set_status(buf, len, 0);
 		}
