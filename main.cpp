@@ -32,8 +32,9 @@ int wmain(int argc, wchar_t **argv) {
 	char buf[4096];
 	size_t len;
 	bool caps;
-	while (printf("Message to loop over: "), std::cin.getline(buf, 4096), len = strlen(buf)) {
-		printf("Parsing \"%s\"...\n", buf);
+	printf(" VIGOROUSLYMASTURBATING v1.00\n\n - Automated command spam for THW chat\n\n> Type your message (enter to finish)\n> You have 1 second to set keyboard focus to chat box\n> Use CAPS LOCK to stop the loop\n");
+	while (printf("\nMessage to loop over: "), std::cin.getline(buf, 4096), len = strlen(buf)) {
+		printf("Spamming \"%s\"...\n", buf);
 		for (;;) {
 			Sleep(1000);
 			for (unsigned i = 0; !(caps = GetKeyState(VK_CAPITAL) & 0x0001) && i < len; ++i) {
