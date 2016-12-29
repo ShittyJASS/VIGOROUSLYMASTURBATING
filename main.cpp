@@ -31,14 +31,16 @@ void set_status(char *src, size_t len, unsigned i) {
 int wmain(int argc, wchar_t **argv) {
 	char buf[4096];
 	size_t len;
+	bool caps;
 	while (printf("Message to loop over: "), std::cin.getline(buf, 4096), len = strlen(buf)) {
 		printf("Parsing \"%s\"...\n", buf);
 		for (;;) {
 			Sleep(1000);
-			for (unsigned i = 0; i < len; ++i) {
+			for (unsigned i = 0; !(caps = GetKeyState(VK_CAPITAL) & 0x0001) && i < len; ++i) {
 				set_status(buf, len, i);
 				Sleep(200);
 			}
+			if (caps) break;
 			set_status(buf, len, 0);
 		}
 	}
